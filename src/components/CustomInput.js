@@ -1,59 +1,41 @@
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import React, { useState } from 'react';
 import { moderateScale } from 'react-native-size-matters';
-// import { colors } from '../constants/colors';
 
 // Icons
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import Feather from "react-native-vector-icons/Feather";
+import Feather from 'react-native-vector-icons/Feather';
 import { useTheme } from '@react-navigation/native';
 
-type CustomInputProps = {
-    label: string;
-    icon?: React.ReactElement;
-    placeholder: string,
-    type?: String
-};
-
-const CustomInput: React.FC<CustomInputProps> = ({ label, icon, placeholder, type, ...rest }) => {
-    const [secureTextEntry, setSecureTextEntry] = useState(true)
-    const {colors}=useTheme();
+const CustomInput = ({ label, icon, placeholder, type, ...rest }) => {
+    const [secureTextEntry, setSecureTextEntry] = useState(true);
+    const { colors } = useTheme();
 
     return (
         <View style={styles.container}>
-            <Text style={[styles.inputLabel, {        color: colors.textPrimary,
-}]}>{label}</Text>
+            <Text style={[styles.inputLabel, { color: colors.textPrimary }]}>
+                {label}
+            </Text>
 
             <View style={styles.inputFieldContainer}>
                 {icon}
-                {/* <Ionicons
-                    name="mail-outline"
-                    size={moderateScale(28)}
-                    color={colors.iconSecondary}
-                    style={styles.icon}
-                /> */}
                 <TextInput
-                    style={[styles.textInput,{color: colors.textPrimary}]}
+                    style={[styles.textInput, { color: colors.textPrimary }]}
                     placeholder={placeholder}
                     placeholderTextColor={colors.iconSecondary}
-                    secureTextEntry={type === "password" && secureTextEntry}
-
-
+                    secureTextEntry={type === 'password' && secureTextEntry}
+                    {...rest}
                 />
 
-
-                {type === "password" && (
+                {type === 'password' && (
                     <TouchableOpacity onPress={() => setSecureTextEntry(!secureTextEntry)}>
                         <Feather
-                            name={secureTextEntry ? "eye" : "eye-off"}
+                            name={secureTextEntry ? 'eye' : 'eye-off'}
                             size={moderateScale(28)}
                             color={colors.iconSecondary}
                             style={styles.icon}
                         />
                     </TouchableOpacity>
-                )
-                }
-
+                )}
             </View>
         </View>
     );
